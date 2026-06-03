@@ -62,8 +62,8 @@ Invoke-RestMethod -Method POST "https://api.github.com/repos/Pururut114/puru-wor
 
 | Файл | sourceAssembly GUID |
 |------|---------------------|
-| `Runtime/com.pururut.pwu.runtime.asset` | *(заполнить после первого Unity import)* |
-| `ProTV/com.pururut.pwu.protv.asset` | *(заполнить после первого Unity import)* |
+| `Runtime/com.pururut.pwu.runtime.asset` | `30e81ebcf56f4ca684b0ca3f2dcb1563` |
+| `ProTV/com.pururut.pwu.protv.asset` | `62914fafdd734bf9bbf05078965e3758` |
 
 - `m_Script` GUID UdonSharpAssemblyDefinition.cs: `5136146375e9a0a498a72a0091b40cc1`
 - fileID для AssemblyDefinitionAsset ссылок: `5897886265953266890`
