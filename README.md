@@ -4,14 +4,14 @@ Standalone UdonSharp utilities for VRChat worlds. Drop-in components — no fram
 
 ## Install via VCC
 
-Add repository:
-```
-vcc://vpm/add-repo?url=https://Pururut114.github.io/puru-world-utils/index.json
-```
-
-Or manually add the listing URL in VCC → Settings → Packages → Add Repository:
+Open **VCC → Settings → Packages → Add Repository** and paste:
 ```
 https://Pururut114.github.io/puru-world-utils/index.json
+```
+
+Or use the one-click link (may not work on all systems):
+```
+vcc://vpm/add-repo?url=https://Pururut114.github.io/puru-world-utils/index.json
 ```
 
 ## Utilities
