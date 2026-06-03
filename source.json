@@ -1,0 +1,11 @@
+{
+  "name": "Puru World Utils",
+  "id": "com.pururut.pwu.listing",
+  "url": "https://Pururut114.github.io/puru-world-utils/index.json",
+  "author": "Pururut114",
+  "description": "Standalone UdonSharp utilities for VRChat worlds.",
+  "githubRepos": [
+    "Pururut114/puru-world-utils"
+  ],
+  "packages": []
+}

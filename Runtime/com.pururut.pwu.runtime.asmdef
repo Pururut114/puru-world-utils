@@ -1,0 +1,19 @@
+{
+    "name": "com.pururut.pwu.runtime",
+    "rootNamespace": "PuruWorldUtils",
+    "references": [
+        "VRC.Udon",
+        "VRC.SDKBase",
+        "UdonSharp.Runtime",
+        "Unity.Postprocessing.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

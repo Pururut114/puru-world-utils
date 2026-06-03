@@ -1,0 +1,40 @@
+name: Build Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Read package.json
+        id: pkg
+        run: |
+          echo "name=$(node -p "require('./package.json').name")" >> $GITHUB_OUTPUT
+          echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+          echo "displayName=$(node -p "require('./package.json').displayName")" >> $GITHUB_OUTPUT
+          echo "description=$(node -p "require('./package.json').description")" >> $GITHUB_OUTPUT
+
+      - name: Create release zip
+        uses: vimtor/action-zip@v1
+        with:
+          files: .
+          recursive: true
+          dest: ${{ steps.pkg.outputs.name }}-${{ steps.pkg.outputs.version }}.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: ${{ steps.pkg.outputs.name }}-${{ steps.pkg.outputs.version }}.zip
+          name: ${{ steps.pkg.outputs.displayName }} ${{ steps.pkg.outputs.version }}
+          body: ${{ steps.pkg.outputs.description }}
+          prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}

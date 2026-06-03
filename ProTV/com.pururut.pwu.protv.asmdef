@@ -1,0 +1,21 @@
+{
+    "name": "com.pururut.pwu.protv",
+    "rootNamespace": "PuruWorldUtils",
+    "references": [
+        "com.pururut.pwu.runtime",
+        "VRC.Udon",
+        "VRC.SDKBase",
+        "UdonSharp.Runtime",
+        "ArchiTech.SDK.Runtime",
+        "ArchiTech.ProTV.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": ["PWU_PROTV_INSTALLED"],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

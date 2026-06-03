@@ -1,0 +1,26 @@
+{
+    "name": "com.pururut.pwu.editor",
+    "rootNamespace": "PuruWorldUtils.Editor",
+    "references": [
+        "com.pururut.pwu.runtime",
+        "VRC.Udon",
+        "VRC.SDKBase",
+        "UdonSharp.Runtime",
+        "UdonSharp.Editor"
+    ],
+    "includePlatforms": ["Editor"],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "dev.architech.protv",
+            "expression": "",
+            "define": "PWU_PROTV_INSTALLED"
+        }
+    ],
+    "noEngineReferences": false
+}
