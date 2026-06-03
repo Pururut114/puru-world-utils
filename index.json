@@ -1,1 +1,33 @@
-{}
+{
+  "name": "Puru World Utils",
+  "id": "com.pururut.pwu.listing",
+  "url": "https://Pururut114.github.io/puru-world-utils/index.json",
+  "author": "Pururut114",
+  "description": "Standalone UdonSharp utilities for VRChat worlds.",
+  "packages": {
+    "com.pururut.world-utils": {
+      "versions": {
+        "0.1.0": {
+          "name": "com.pururut.world-utils",
+          "displayName": "Puru World Utils",
+          "version": "0.1.0",
+          "author": {
+            "name": "Pururut",
+            "email": "opleskach@readdle.com"
+          },
+          "unity": "2019.4",
+          "description": "Standalone UdonSharp utilities for VRChat worlds.",
+          "license": "MIT",
+          "vpmDependencies": {
+            "com.vrchat.worlds": ">=3.1.0",
+            "com.vrchat.udonsharp": ">=1.1.8"
+          },
+          "dependencies": {
+            "com.unity.postprocessing": "3.2.2"
+          },
+          "url": "https://github.com/Pururut114/puru-world-utils/releases/download/v0.1.0/com.pururut.world-utils-0.1.0.zip"
+        }
+      }
+    }
+  }
+}
