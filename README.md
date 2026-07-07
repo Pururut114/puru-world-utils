@@ -31,6 +31,21 @@ Spawn all utilities from `Tools > World Utils > Spawn`.
 
 ProTV utilities require [ProTV](https://protv.dev) to be installed. They are automatically enabled when detected.
 
+## Editor Tools
+
+Standalone tools, no runtime component:
+
+| Tool | Menu | Что делает |
+|------|------|-----------|
+| Terrain To Mesh | `Tools > World Utils > Terrain To Mesh` | Unity `Terrain` → chunked static mesh: даунсемплинг heightmap, бесшовные чанки, bake сплатмапы (до 4 слоёв) в RGBA-маску, auto-material на `Puru/TerrainBlend4`, экспорт в OBJ под Blender |
+| Scene Materials Analyzer / Inspector | `Tools > Scene Materials > ...` | Обзор материалов и текстур в сцене (память, использование) |
+
+## Shaders
+
+| Shader | Где используется |
+|--------|-------------------|
+| `Puru/TerrainBlend4` | 4-слоевой сплат-блендинг (albedo+normal по RGBA-маске). Материал под него собирается автоматически тулом Terrain To Mesh, либо вручную — см. `Shaders/TerrainBlend4/TerrainBlend4_Guide.md` |
+
 ## Requirements
 
 - Unity 2022.3 LTS+

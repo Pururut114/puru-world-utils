@@ -93,7 +93,66 @@ Invoke-RestMethod -Method POST "https://api.github.com/repos/Pururut114/puru-wor
 
 ---
 
-## Checklist нового компонента
+## Shaders/ (не asmdef, просто ассеты)
+
+- `Shaders/<Name>/<Name>.shader` — обычные .shader файлы, не входят ни в один asmdef, компилятору Unity это не важно.
+- Первый: `Shaders/TerrainBlend4/` — companion для `Editor/Tools/TerrainToMesh/` (Terrain To Mesh тула).
+
+## .meta без открытого Unity
+
+Когда репо не открыто как проект (нет живого Editor, который сам создаёт `.meta` на импорт), можно писать `.meta` руками — формат стабилен между версиями Unity, GUID просто должен быть уникальным 32-символьным hex (`uuid4().hex` подходит):
+
+```yaml
+# папка
+fileFormatVersion: 2
+guid: <32 hex>
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData:
+  assetBundleName:
+  assetBundleVariant:
+```
+```yaml
+# .cs
+fileFormatVersion: 2
+guid: <32 hex>
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData:
+  assetBundleName:
+  assetBundleVariant:
+```
+```yaml
+# .shader
+fileFormatVersion: 2
+guid: <32 hex>
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData:
+  assetBundleName:
+  assetBundleVariant:
+```
+```yaml
+# .md / любой обычный текстовый ассет
+fileFormatVersion: 2
+guid: <32 hex>
+DefaultImporter:
+  externalObjects: {}
+  userData:
+  assetBundleName:
+  assetBundleVariant:
+```
+
+`_validate_release.py` подтверждает — "All N Unity-tracked files have .meta" проходит на руками написанных метах так же, как на настоящих.
+
+## Checklist нового компонента (только для UdonSharpBehaviour, не для чистых Editor-тулов/шейдеров)
 
 - Файл в `Runtime/<Category>/PWU_<Name>.cs`
 - Наследование от `UdonSharpBehaviour`, атрибут `[UdonBehaviourSyncMode]`
