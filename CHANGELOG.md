@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.1] — 2026-07-07
+
+### Fixed
+- Terrain To Mesh: чанки теперь помечаются `StaticEditorFlags.ContributeGI` при включённом "Generate Lightmap UV" — без этого флага ни встроенный Progressive Lightmapper, ни Bakery не бейкали объект (Bakery, в отличие от встроенного, не делает auto-unwrap и просто пропускает объекты без валидного UV2 + флага)
+
 ## [0.2.0] — 2026-07-07
 
 ### Added

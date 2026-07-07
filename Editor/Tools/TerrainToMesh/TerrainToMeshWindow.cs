@@ -341,6 +341,14 @@ namespace PuruWorldUtils.Editor
                 mc.sharedMesh = mesh;
             }
 
+            if (_generateLightmapUV)
+            {
+                // Без Lightmap Static (Contribute GI) объект не увидит ни встроенный
+                // Progressive Lightmapper, ни Bakery — второй, в отличие от первого,
+                // не делает auto-unwrap и просто пропустит объект без валидного UV2 + флага.
+                GameObjectUtility.SetStaticEditorFlags(go, StaticEditorFlags.ContributeGI);
+            }
+
             return go;
         }
 

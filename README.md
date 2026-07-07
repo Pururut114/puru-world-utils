@@ -37,7 +37,7 @@ Standalone tools, no runtime component:
 
 | Tool | Menu | Что делает |
 |------|------|-----------|
-| Terrain To Mesh | `Tools > World Utils > Terrain To Mesh` | Unity `Terrain` → chunked static mesh: даунсемплинг heightmap, бесшовные чанки, bake сплатмапы (до 4 слоёв) в RGBA-маску, auto-material на `Puru/TerrainBlend4`, экспорт в OBJ под Blender |
+| Terrain To Mesh | `Tools > World Utils > Terrain To Mesh` | Unity `Terrain` → chunked static mesh: даунсемплинг heightmap, бесшовные чанки, bake сплатмапы (до 4 слоёв) в RGBA-маску, auto-material на `Puru/TerrainBlend4`, экспорт в OBJ под Blender. С "Generate Lightmap UV" ставит на чанк Static → Contribute GI — готово под бейк встроенным Progressive Lightmapper или Bakery |
 | Scene Materials Analyzer / Inspector | `Tools > Scene Materials > ...` | Обзор материалов и текстур в сцене (память, использование) |
 
 ## Shaders
