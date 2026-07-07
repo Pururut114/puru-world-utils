@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.2] — 2026-07-07
+
+### Added
+- `Puru/TerrainBlend4`: опциональная общая metallic/smoothness-карта (`_MetallicSmoothnessMap`, R=metallic/A=smoothness) + слайдер `_Metallic`. Не тянется с террейна, чисто ручная опция в материале, дефолт (белая текстура) не меняет прежнее поведение.
+
 ## [0.2.1] — 2026-07-07
 
 ### Fixed
