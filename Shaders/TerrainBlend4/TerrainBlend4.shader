@@ -16,9 +16,22 @@ Shader "Puru/TerrainBlend4"
         _Texture3 ("Layer 3 Albedo", 2D) = "white" {}
         _Normal3 ("Layer 3 Normal", 2D) = "bump" {}
 
-        _MetallicSmoothnessMap ("Metallic (R) / Smoothness (A)", 2D) = "white" {}
-        _Metallic ("Metallic", Range(0,1)) = 0.0
-        _Smoothness ("Smoothness", Range(0,1)) = 0.0
+        _MetallicSmoothness0 ("Layer 0 Metallic (R) / Smoothness (A)", 2D) = "white" {}
+        _Metallic0 ("Layer 0 Metallic", Range(0,1)) = 0.0
+        _Smoothness0 ("Layer 0 Smoothness", Range(0,1)) = 0.0
+
+        _MetallicSmoothness1 ("Layer 1 Metallic (R) / Smoothness (A)", 2D) = "white" {}
+        _Metallic1 ("Layer 1 Metallic", Range(0,1)) = 0.0
+        _Smoothness1 ("Layer 1 Smoothness", Range(0,1)) = 0.0
+
+        _MetallicSmoothness2 ("Layer 2 Metallic (R) / Smoothness (A)", 2D) = "white" {}
+        _Metallic2 ("Layer 2 Metallic", Range(0,1)) = 0.0
+        _Smoothness2 ("Layer 2 Smoothness", Range(0,1)) = 0.0
+
+        _MetallicSmoothness3 ("Layer 3 Metallic (R) / Smoothness (A)", 2D) = "white" {}
+        _Metallic3 ("Layer 3 Metallic", Range(0,1)) = 0.0
+        _Smoothness3 ("Layer 3 Smoothness", Range(0,1)) = 0.0
+
         _NormalStrength ("Normal Strength", Range(0,2)) = 1.0
     }
 
@@ -38,9 +51,11 @@ Shader "Puru/TerrainBlend4"
         sampler2D _Texture2; sampler2D _Normal2;
         sampler2D _Texture3; sampler2D _Normal3;
 
-        sampler2D _MetallicSmoothnessMap;
-        half _Metallic;
-        half _Smoothness;
+        sampler2D _MetallicSmoothness0; half _Metallic0; half _Smoothness0;
+        sampler2D _MetallicSmoothness1; half _Metallic1; half _Smoothness1;
+        sampler2D _MetallicSmoothness2; half _Metallic2; half _Smoothness2;
+        sampler2D _MetallicSmoothness3; half _Metallic3; half _Smoothness3;
+
         half _NormalStrength;
 
         // uv_TextureN -> TEXCOORD0 (channel "uv" mesh, мировые координаты в метрах),
@@ -56,7 +71,6 @@ Shader "Puru/TerrainBlend4"
             float2 uv_Texture1;
             float2 uv_Texture2;
             float2 uv_Texture3;
-            float2 uv_MetallicSmoothnessMap;
             float2 maskUV;
         };
 
@@ -88,12 +102,27 @@ Shader "Puru/TerrainBlend4"
             blended.xy *= _NormalStrength;
             blended = normalize(blended);
 
-            fixed4 ms = tex2D(_MetallicSmoothnessMap, IN.uv_MetallicSmoothnessMap);
+            fixed4 ms0 = tex2D(_MetallicSmoothness0, IN.uv_Texture0);
+            fixed4 ms1 = tex2D(_MetallicSmoothness1, IN.uv_Texture1);
+            fixed4 ms2 = tex2D(_MetallicSmoothness2, IN.uv_Texture2);
+            fixed4 ms3 = tex2D(_MetallicSmoothness3, IN.uv_Texture3);
+
+            fixed metallic =
+                ms0.r * _Metallic0 * w.r +
+                ms1.r * _Metallic1 * w.g +
+                ms2.r * _Metallic2 * w.b +
+                ms3.r * _Metallic3 * w.a;
+
+            fixed smoothness =
+                ms0.a * _Smoothness0 * w.r +
+                ms1.a * _Smoothness1 * w.g +
+                ms2.a * _Smoothness2 * w.b +
+                ms3.a * _Smoothness3 * w.a;
 
             o.Albedo = albedo.rgb;
             o.Normal = blended;
-            o.Metallic = ms.r * _Metallic;
-            o.Smoothness = ms.a * _Smoothness;
+            o.Metallic = metallic;
+            o.Smoothness = smoothness;
             o.Alpha = 1;
         }
         ENDCG

@@ -29,10 +29,10 @@ Built-in RP, `#pragma surface ... Standard` — lightmap/GI/reflection probes р
 | `_MaskTex` | RGBA-маска весов слоёв (R=слой0, G=слой1, B=слой2, A=слой3). Генерируется Terrain To Mesh из `TerrainData.GetAlphamaps`. |
 | `_Texture0..3` | Albedo каждого слоя |
 | `_Normal0..3` | Normal map каждого слоя (tangent space, `bump` дефолт) |
-| `_MetallicSmoothnessMap` | Опциональная общая (не per-layer) карта: R = metallic, A = smoothness. Дефолт — белая текстура, то есть по умолчанию карта не меняет поведение, всё решают слайдеры ниже. Не тянется с террейна — чисто ручная настройка в материале, сэмплится по тем же мировым координатам (channel 0), что и albedo, со своим Tiling/Offset. |
-| `_Metallic` | Множитель на R-канал карты. Без карты (белая) — это и есть итоговый metallic. |
-| `_Smoothness` | Множитель на A-канал карты. Без карты — итоговый smoothness, один слайдер на все 4 слоя (не per-layer). |
-| `_NormalStrength` | Множитель на XY нормали после блендинга (усиление/ослабление рельефа) |
+| `_MetallicSmoothness0..3` | Опциональная карта на каждый слой: R = metallic, A = smoothness. Дефолт — белая текстура (карта не меняет поведение, всё решают слайдеры ниже). Не тянется с террейна — чисто ручная настройка в материале, сэмплится той же UV (`uv_TextureN`), что и albedo/normal этого слоя — общий Tiling/Offset с albedo. |
+| `_Metallic0..3` | Множитель на R-канал соответствующей карты. Без карты (белая) — это и есть итоговый metallic слоя. |
+| `_Smoothness0..3` | Множитель на A-канал соответствующей карты. Без карты — итоговый smoothness слоя. |
+| `_NormalStrength` | Множитель на XY нормали после блендинга (усиление/ослабление рельефа), общий на весь материал |
 
 ## Как блендится
 
@@ -40,14 +40,18 @@ Built-in RP, `#pragma surface ... Standard` — lightmap/GI/reflection probes р
 w = mask / (mask.r + mask.g + mask.b + mask.a)   // нормализация весов
 albedo = albedo0*w.r + albedo1*w.g + albedo2*w.b + albedo3*w.a
 normal = normalize(n0*w.r + n1*w.g + n2*w.b + n3*w.a)
+metallic   = (ms0.r*_Metallic0)*w.r + (ms1.r*_Metallic1)*w.g + (ms2.r*_Metallic2)*w.b + (ms3.r*_Metallic3)*w.a
+smoothness = (ms0.a*_Smoothness0)*w.r + (ms1.a*_Smoothness1)*w.g + (ms2.a*_Smoothness2)*w.b + (ms3.a*_Smoothness3)*w.a
 ```
+
+Metallic/smoothness каждого слоя считается независимо (карта × свой слайдер), а затем блендится теми же весами маски, что и albedo/normal — то есть на стыке слоёв металличность плавно переходит, как и цвет.
 
 Веса нормализуются на случай, если маска не строго в сумме даёт 1 (баунд-эффекты сжатия PNG, если маска когда-то будет сжата с потерями — сейчас Terrain To Mesh пишет Uncompressed, так что это скорее защита на будущее).
 
 ## Ограничения
 
 - Ровно 4 слоя, жёстко (не N). Больше слоёв на терраине — старшие обрежутся при запекании маски (см. GUIDE тула).
-- `_MetallicSmoothnessMap`/`_Smoothness`/`_NormalStrength` общие на весь материал, не per-layer — осознанное упрощение ("простенький шейдерок"), если понадобится per-layer — расширять через доп. каналы маски или отдельные свойства.
+- `_NormalStrength` общий на весь материал (не per-layer) — остальное (albedo/normal/metallic/smoothness) уже per-layer.
 - Не поддерживает Height-based blending (резкие переходы между слоями, без учёта высоты/наклона) — только чистый alpha-blend по маске, как есть в исходном сплате террейна.
 
 ## Файлы

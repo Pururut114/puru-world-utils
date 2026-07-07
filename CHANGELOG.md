@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.3] — 2026-07-07
+
+### Changed
+- `Puru/TerrainBlend4`: metallic/smoothness теперь **per-layer**, а не общие на материал — заменил `_MetallicSmoothnessMap`/`_Metallic`/`_Smoothness` (0.2.2) на `_MetallicSmoothness0..3`/`_Metallic0..3`/`_Smoothness0..3`, каждый на своей UV (та же, что у albedo/normal слоя), блендится тем же весом маски. `_NormalStrength` остаётся общим.
+
 ## [0.2.2] — 2026-07-07
 
 ### Added
